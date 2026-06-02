@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# GuruPintar AI (FE-FUN-AR)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GuruPintar AI adalah aplikasi *frontend* berbasis web yang terintegrasi dengan aplikasi utama AR Guru. Aplikasi ini dirancang untuk membantu para guru dalam menghasilkan kuis berbasis kecerdasan buatan (AI) serta memantau dan melacak nilai murid dengan mudah.
 
-Currently, two official plugins are available:
+## 🌟 Fitur Utama
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **🧠 AI Quiz Generation (Quiz Builder)**: Membuat soal kuis interaktif secara otomatis menggunakan AI berdasarkan topik atau materi pelajaran.
+- **📊 Grade Tracking (Tabel Nilai)**: Memantau dan mengelola hasil nilai kuis atau ulangan murid secara *real-time* dalam bentuk tabel yang interaktif dan mudah dibaca.
+- **✨ Animasi Interaktif**: Tampilan antarmuka yang modern, *clean*, dan menarik dengan animasi *smooth* dari framer-motion.
+- **⚡ Fast & Responsive**: Dibangun di atas Vite untuk *hot-reloading* super cepat dengan tata letak UI yang sepenuhnya responsif, memastikan kenyamanan akses pada perangkat apa pun.
 
-## React Compiler
+## 🛠️ Teknologi yang Digunakan
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Proyek ini dibangun menggunakan *stack* teknologi modern terkini:
 
-## Expanding the ESLint configuration
+- **Framework**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Bahasa**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Routing**: [React Router DOM v7](https://reactrouter.com/)
+- **Animasi**: [Framer Motion](https://www.framer.com/motion/)
+- **Ikon**: [Lucide React](https://lucide.dev/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Instalasi & Development
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Ikuti langkah-langkah di bawah ini untuk menjalankan proyek ini di *local environment* (komputer) Anda.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prasyarat
+Pastikan Anda sudah menginstal **Node.js** (direkomendasikan versi LTS, seperti 18.x atau 20.x).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Langkah-Langkah
+
+1. **Clone repositori ini:**
+   ```bash
+   git clone https://github.com/Asddqphn1/FE-FUN-AR.git
+   cd fe-fun-ar-guru
+   ```
+
+2. **Instal dependensi:**
+   ```bash
+   npm install
+   ```
+
+3. **Jalankan development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. Buka *browser* Anda dan kunjungi **http://localhost:5173** (atau port yang tertera di terminal) untuk melihat hasil *render* secara *real-time*.
+
+## 🏗️ Build & Deployment
+
+Untuk melakukan kompilasi kode dan *build* khusus untuk di-*deploy* ke peladen (server) *production*, jalankan:
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Perintah di atas akan melakukan *type checking* ketat pada TypeScript dan menghasilkan sekumpulan fail statik hasil *build* di dalam direktori `dist/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🤝 Kontribusi
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Kami sangat menyambut segala bentuk kontribusi yang dapat membantu memajukan proyek ini. Jika Anda menemukan *bug* atau memiliki ide untuk fitur baru yang relevan, silakan buat *Pull Request* atau beritahukan hal tersebut melalui menu *Issues*.
+
+## 📄 Lisensi
+
+Proyek ini merupakan properti atau bagian integral dari pengembangan sistem pendidikan AR Guru. Harap hubungi *maintainer* untuk detail perizinan jika Anda ingin menggunakan sebagian atau seluruh modul dari proyek ini di luar ekosistem atau layanan AR Guru.

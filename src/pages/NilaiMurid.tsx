@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSchoolStore } from '../store/useSchoolStore';
-import { GraduationCap, Search, Filter } from 'lucide-react';
+import { GraduationCap, Search, Filter, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { fetchApi } from '../lib/api';
+import NilaiDetailModal from '../components/NilaiDetailModal';
 
 // Mock data interface
 interface StudentGrade {
@@ -12,6 +13,7 @@ interface StudentGrade {
   exam: string;
   score: number | null;
   status: 'Tuntas' | 'Remedial' | 'Belum Ikut';
+  sessionId: string;
 }
 
 export default function NilaiMurid() {
@@ -19,6 +21,8 @@ export default function NilaiMurid() {
   const [grades, setGrades] = useState<StudentGrade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSessionId, setSelectedSessionId] = useState<string>('');
 
   useEffect(() => {
     if (!token) return;
@@ -28,15 +32,17 @@ export default function NilaiMurid() {
       try {
         setIsLoading(true);
         const data = await fetchApi(`/ujian/nilai?token=${token}`);
+        const listData = data?.data || data;
         if (isMounted) {
-          const mappedGrades = (data || []).map((item: any, idx: number) => {
+          const mappedGrades = (Array.isArray(listData) ? listData : []).map((item: any, idx: number) => {
             return {
               id: item.id?.toString() || idx.toString(),
               name: item.user?.full_name || item.user?.name || item.user?.email || 'Siswa Tanpa Nama',
               class: item.user?.kelas || item.user?.class || 'Umum',
               exam: item.topic || 'Ujian AI',
               score: item.total_score,
-              status: item.status
+              status: item.status,
+              sessionId: item.id?.toString() || item.session_id?.toString() || idx.toString()
             };
           });
           setGrades(mappedGrades);
@@ -99,18 +105,19 @@ export default function NilaiMurid() {
                 <th className="px-6 py-4">Ujian</th>
                 <th className="px-6 py-4 text-center">Nilai</th>
                 <th className="px-6 py-4 text-center">Status</th>
+                <th className="px-6 py-4 text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
               {isLoading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-400">
                     Memuat data nilai...
                   </td>
                 </tr>
               ) : filteredGrades.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-400">
                     Tidak ada siswa yang cocok dengan pencarian.
                   </td>
                 </tr>
@@ -140,6 +147,18 @@ export default function NilaiMurid() {
                         {grade.status}
                       </span>
                     </td>
+                    <td className="px-6 py-4 text-center">
+                      <button
+                        onClick={() => {
+                          setSelectedSessionId(grade.sessionId);
+                          setIsModalOpen(true);
+                        }}
+                        className="inline-flex items-center justify-center p-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg transition-colors"
+                        title="Lihat Detail Nilai"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </button>
+                    </td>
                   </motion.tr>
                 ))
               )}
@@ -154,6 +173,13 @@ export default function NilaiMurid() {
           </div>
         </div>
       </div>
+
+      <NilaiDetailModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        sessionId={selectedSessionId}
+        token={token || ''}
+      />
     </motion.div>
   );
 }
